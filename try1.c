@@ -7,7 +7,7 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
-//comment for git stuff
+//comment for git stuff times 2
 int main(int argc, char **argv)
 {
     inquiry_info *ii = NULL;
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     max_rsp = 255;
     flags = IREQ_CACHE_FLUSH;
     ii = (inquiry_info*)malloc(max_rsp * sizeof(inquiry_info));
-    
+
     num_rsp = hci_inquiry(dev_id, len, max_rsp, NULL, &ii, flags);
     printf("found %d\n", num_rsp);
     if( num_rsp < 0 ) perror("hci_inquiry");
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     for (i = 0; i < num_rsp; i++) {
         ba2str(&(ii+i)->bdaddr, addr);
         memset(name, 0, sizeof(name));
-        if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name), 
+        if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
             name, 0) < 0)
         strcpy(name, "[unknown]");
         printf("%s  %s\n", addr, name);
